@@ -1,127 +1,245 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from "react";
 
 export default function Home() {
-  // FIXED: Properly declared menuOpen state
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const testimonials = [
-    { quote: "Human Being is the Viceregent of Almighty Allah...", author: "Mr. Mujtaba Farooq, President" },
-    { quote: "Education & Knowledge are rightly called the 'Third Eye'...", author: "Mohammad Khalid, Principal" }
+  const navItems = [
+    "Home",
+    "About Us",
+    "Why AI-Irfan?",
+    "Admissions",
+    "Curriculum",
+    "Student Life",
+    "For Parents",
+    "Contact",
   ];
-
-  const facilities = [
-    { title: "Academic Facilities", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOziYdgFhdzpVdu2m_yM1aLtIy_8qAICjng&s", description: "Smart Class Rooms, Laboratories" },
-    { title: "Computer Education", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-7.jpg", description: "Labs, Khan Academy" },
-    { title: "Academic Support", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-8.jpg", description: "Regular Test Series, Excellence Batch" },
-    { title: "Learning Resources", image: "https://www.gemsakinternationalschool.com/-/media/project/gems/akn_al_khaleej_national_school/_generic-content-images/new-facilities-02-08-22/3.jpg", description: "Library, Subject-based Clubs" },
-    { title: "Competitions & Events", image: "https://lh3.googleusercontent.com/p/AF1QipO0EdNNFv5a-ufPkAt-rmf_dANgRJwNuvvODfzt=s680-w680-h510", description: "Olympiads, Annual Gathering" },
-    { title: "Sports & Activities", image: "https://www.sunglowschool.in/web_uploads/ch2018-11-05-16-37-34.jpg", description: "Cricket, Football, Judo" }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <div className="min-h-screen bg-white font-poppins">
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-        .nav-link { position: relative; color: #1f2937; font-weight: 500; padding: 0.5rem 1rem; }
-        .nav-link:hover { color: #d4af37; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background: #d4af37; transition: all 0.3s; }
-        .nav-link:hover::after { width: 100%; left: 0; }
-        .hamburger span { display: block; width: 28px; height: 3px; background: #d4af37; margin: 6px 0; transition: 0.3s; border-radius: 3px; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-      `}</style>
-
-      {/* Fixed Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-amber-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-3xl font-bold text-amber-600">Al-Irfan</div>
-          <div className="hidden lg:flex gap-10">
-            {['Home', 'About Us', 'Why Al-Irfan?', 'Admissions', 'Curriculum', 'Student Life', 'For Parents'].map((item) => (
-              <a key={item} href="#" className="nav-link">{item}</a>
-            ))}
+    <>
+      {/* Header & Navigation */}
+      <header className="bg-white shadow-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo - Circular */}
+          <div className="flex items-center space-x-4">
+            <div className="w-14 h-14 rounded-full overflow-hidden border-4 border-amber-500 shadow-lg">
+              <img
+                src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=200&h=200&fit=crop&crop=face"
+                alt="AI-Irfan School Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">AI-Irfan</h1>
+              <p className="text-xs text-amber-600 font-semibold">
+                British International School
+              </p>
+            </div>
           </div>
-          <div 
-            className="hamburger lg:hidden cursor-pointer"
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-gray-700 hover:text-amber-600 font-medium transition"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
             onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden z-50 relative w-8 h-8 focus:outline-none"
           >
-            <span className={menuOpen ? 'active' : ''}></span>
-            <span className={menuOpen ? 'active' : ''}></span>
-            <span className={menuOpen ? 'active' : ''}></span>
-          </div>
+            <span
+              className={`block absolute h-0.5 w-6 bg-amber-600 transform transition-all duration-300 ${
+                menuOpen ? "rotate-45 top-3.5" : "top-2"
+              }`}
+            ></span>
+            <span
+              className={`block absolute h-0.5 w-6 bg-amber-600 top-3.5 transition-all duration-300 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            ></span>
+            <span
+              className={`block absolute h-0.5 w-6 bg-amber-600 transform transition-all duration-300 ${
+                menuOpen ? "-rotate-45 top-3.5" : "top-5"
+              }`}
+            ></span>
+          </button>
         </div>
-      </nav>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div 
-          className="fixed inset-0 bg-slate-900/95 z-40 flex items-center justify-center"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div onClick={(e) => e.stopPropagation()} className="text-center">
-            {['Home', 'About Us', 'Why Al-Irfan?', 'Admissions', 'Curriculum', 'Student Life', 'For Parents'].map((item) => (
-              <a key={item} href="#" className="block text-4xl font-bold text-amber-500 my-6">{item}</a>
-            ))}
+        {/* Mobile Menu Overlay */}
+        {menuOpen && (
+          <div className="fixed inset-0 bg-gradient-to-b from-amber-600 to-amber-700 z-40 pt-24">
+            <nav className="flex flex-col items-center space-y-8 text-white text-xl font-medium">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  onClick={() => setMenuOpen(false)}
+                  className="hover:text-amber-200 transition"
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
           </div>
-        </div>
-      )}
+        )}
+      </header>
 
-      {/* Hero Video */}
-      <section className="relative h-screen">
-        <iframe
-          src="https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1"
-          className="absolute inset-0 w-full h-full object-cover"
-          allow="autoplay"
-          allowFullScreen
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/90" />
-        <div className="absolute bottom-20 left-10 text-white max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-black mb-4">ALIRFAN RESIDENTIAL SCHOOL</h1>
-          <p className="text-2xl md:text-4xl font-semibold mb-6">Unlocking Knowledge • Inspiring Growth</p>
-          <p className="text-lg md:text-xl">Empowering young minds with academic excellence and strong Islamic values</p>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-amber-500 to-orange-600 text-white py-24">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            Welcome to AI-Irfan School
+          </h1>
+          <p className="text-xl md:text-2xl mb-10 opacity-90">
+            Outstanding British Education | AI-Enhanced Learning | Dubai
+          </p>
+          <div className="space-x-4">
+            <button className="bg-white text-amber-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+              Enquire Now
+            </button>
+            <button className="border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-amber-600 transition">
+              Virtual Tour
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Rest of sections - all working perfectly */}
-      <section className="py-20 bg-gray-50 text-center">
-        <h2 className="text-5xl font-bold text-amber-600 mb-8">President's Message</h2>
-        <div className="max-w-4xl mx-auto bg-white p-10 rounded-3xl shadow-xl">
-          <p className="text-xl italic leading-relaxed text-gray-700">
-            "{testimonials[currentTestimonial].quote}"
-          </p>
-          <p className="mt-8 text-2xl font-bold text-amber-600">
-            — {testimonials[currentTestimonial].author}
-          </p>
+      {/* About Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-800 mb-6">
+              A New Era of Learning
+            </h2>
+            <p className="text-lg text-gray-600 mb-6">
+              AI-Irfan is a premium British curriculum school in Dubai that
+              integrates artificial intelligence and modern pedagogy to prepare
+              students for a future-driven world.
+            </p>
+            <p className="text-gray-600 mb-8">
+              Rated "Outstanding" by KHDA, we offer education from FS1 to Year
+              13 with world-class facilities, experienced British teachers, and
+              a truly inclusive community.
+            </p>
+            <button className="bg-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-amber-700 transition">
+              Discover More
+            </button>
+          </div>
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop"
+              alt="AI-Irfan Campus"
+              className="rounded-2xl shadow-2xl"
+            />
+            <div className="absolute -bottom-6 -left-6 bg-amber-600 text-white p-6 rounded-2xl shadow-xl">
+              <p className="text-4xl font-bold">15+</p>
+              <p className="text-sm">Years of Excellence</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="py-20">
-        <h2 className="text-center text-5xl font-bold text-amber-600 mb-16">Why Choose Al-Irfan?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
-          {facilities.map((f, i) => (
-            <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all">
-              <img src={f.image} alt={f.title} className="w-full h-56 object-cover" />
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-amber-600 mb-3">{f.title}</h3>
-                <p className="text-gray-600">{f.description}</p>
+      {/* Quick Facts */}
+      <section className="py-16 bg-amber-600 text-white">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <h3 className="text-4xl font-bold">1500+</h3>
+            <p className="text-amber-100">Happy Students</p>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold">65+</h3>
+            <p className="text-amber-100">Nationalities</p>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold">100%</h3>
+            <p className="text-amber-100">University Placement</p>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold">A*</h3>
+            <p className="text-amber-100">KHDA Rating</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500">
+                  <img
+                    src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=200&h=200&fit=crop&crop=face"
+                    alt="Logo"
+                  />
+                </div>
+                <h3 className="text-xl font-bold">AI-Irfan School</h3>
+              </div>
+              <p className="text-gray-400">
+                Shaping tomorrow's leaders through excellence in education.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>
+                  <a href="#" className="hover:text-amber-500">
+                    Admissions
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-amber-500">
+                    Fees
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-amber-500">
+                    Careers
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Contact</h4>
+              <p className="text-gray-400">
+                Al Barsha South, Dubai, UAE
+                <br />
+                info@aiirfan.com
+                <br />
+                +971 4 123 4567
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Follow Us</h4>
+              <div className="flex space-x-4 text-2xl">
+                <a href="#" className="hover:text-amber-500">
+                  Facebook
+                </a>
+                <a href="#" className="hover:text-amber-500">
+                  Instagram
+                </a>
+                <a href="#" className="hover:text-amber-500">
+                  LinkedIn
+                </a>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Gallery, Contact, Footer - all included & working */}
-      <footer className="bg-slate-900 text-white py-12 text-center">
-        <p className="text-xl">© 2025 Al-Irfan Residential School • Khultabad, Maharashtra</p>
+          <div className="border-t border-gray-800 mt-10 pt-8 text-center text-gray-500">
+            © 2025 AI-Irfan British International School. All rights reserved.
+          </div>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }

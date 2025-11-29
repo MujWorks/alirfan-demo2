@@ -1,64 +1,92 @@
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);  // ← Fixed: was mobileMenuOpen before
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const presidentNotes = [
-    { quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge...", author: "Mr. Mujtaba Farooq, President" },
-    { quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being...", author: "Mohammad Khalid, Principal" }
+  const heroSlides = [
+    {
+      video: "https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1",
+      title: "ALIRFAN RESIDENTIAL SCHOOL",
+      subtitle: "Unlocking Knowledge, Inspiring Growth",
+      description: "Empower your child with a dynamic and engaging learning environment that fosters creativity and critical thinking."
+    }
   ];
 
-  const features = [
-    { title: "Academic Facilities", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOziYdgFhdzpVdu2m_yM1aLtIy_8qAICjng&s", bullets: ["Smart Class Rooms", "Laboratories"] },
-    { title: "Computer Education", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-7.jpg", bullets: ["Labs", "Khan Academy"] },
-    { title: "Academic Support", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-8.jpg", bullets: ["Regular Test Series", "Excellence Batch"] },
-    { title: "Learning Resources", image: "https://www.gemsakinternationalschool.com/-/media/project/gems/akn_al_khaleej_national_school/_generic-content-images/new-facilities-02-08-22/3.jpg", bullets: ["Library", "Subject-based Clubs"] },
-    { title: "Competitions & Events", image: "https://lh3.googleusercontent.com/p/AF1QipO0EdNNFv5a-ufPkAt-rmf_dANgRJwNuvvODfzt=s680-w680-h510", bullets: ["Olympiads", "Annual Gathering"] },
-    { title: "Sports & Activities", image: "https://www.sunglowschool.in/web_uploads/ch2018-11-05-16-37-34.jpg", bullets: ["Cricket, Football, Judo", "Annual Sports Day"] }
+  const testimonials = [
+    {
+      quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered...",
+      author: "Mr. Mujtaba Farooq, President"
+    },
+    {
+      quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination...",
+      author: "Mohammad Khalid, Principal"
+    }
+  ];
+
+  const facilities = [
+    { title: "Academic Facilities", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOziYdgFhdzpVdu2m_yM1aLtIy_8qAICjng&s", description: "Smart Class Rooms, Laboratories" },
+    { title: "Computer Education", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-7.jpg", description: "Labs, Khan Academy" },
+    { title: "Academic Support", image: "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-8.jpg", description: "Regular Test Series, Excellence Batch" },
+    { title: "Learning Resources", image: "https://www.gemsakinternationalschool.com/-/media/project/gems/akn_al_khaleej_national_school/_generic-content-images/new-facilities-02-08-22/3.jpg", description: "Library, Subject-based Clubs" },
+    { title: "Competitions & Events", image: "https://lh3.googleusercontent.com/p/AF1QipO0EdNNFv5a-ufPkAt-rmf_dANgRJwNuvvODfzt=s680-w680-h510", description: "Olympiads & Competitions, Annual Gathering" },
+    { title: "Cultural & Social Activities", image: "https://greenwoodhigh.edu.in/wp-content/uploads/2021/03/facilities-sarja-icse-tile.jpg", description: "Assembly, Co-Curricular Activities" },
+    { title: "Physical Education", image: "https://www.sunglowschool.in/web_uploads/ch2018-11-05-16-37-34.jpg", description: "Sports, Judo" },
+    { title: "Environmental Learning", image: "https://images.unsplash.com/photo-1588075592446-8e95b58e9e5e?w=800&q=80", description: "\"Al Hamra\" Garden, Educational Tours" },
+    { title: "Religious Studies", image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80", description: "Islamic Environment, Cultural Studies" }
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % presidentNotes.length);
-    }, 8000);
+      setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length);
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a1a2f', color: 'white', fontFamily: 'Poppins, sans-serif', overflowX: 'hidden' }}>
+    <div className="relative min-h-screen bg-white text-slate-800 overflow-x-hidden">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.3); border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .gold { color: #d4af37; }
-        .btn-gold { background: linear-gradient(45deg, #d4af37, #f9e79f); color: #000; padding: 18px 56px; border-radius: 50px; font-weight: 700; font-size: 1.4rem; box-shadow: 0 12px 35px rgba(212,175,55,0.5); transition: all 0.4s; text-decoration: none; display: inline-block; }
-        .btn-gold:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(212,175,55,0.7); }
-        .nav-link { position: relative; color: white; font-weight: 600; padding: 0.5rem 1.2rem; transition: color 0.3s; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .nav-link { position: relative; color: #1f2937; font-weight: 500; font-size: 1rem; padding: 0.5rem 1rem; transition: color 0.3s; }
         .nav-link:hover { color: #d4af37; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -8px; left: 50%; background: #d4af37; transition: all 0.4s; border-radius: 2px; }
-        .nav-link:hover::after { width: 70%; left: 15%; }
-        .hamburger span { display: block; width: 28px; height: 3px; background: #d4af37; margin: 5px 0; border-radius: 3px; transition: 0.4s; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background: #d4af37; transition: all 0.3s; }
+        .nav-link:hover::after { width: 100%; left: 0; }
+        .hamburger { width: 25px; height: 20px; position: relative; cursor: pointer; }
+        .hamburger span { display: block; width: 100%; height: 2px; background: #d4af37; margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        .animate { animation: fadeInUp 1.2s ease-out forwards; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+        .hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%); }
+        .card { transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate { animation: fadeInUp 0.8s ease-out forwards; }
       `}</style>
 
-      {/* Fixed Navbar */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999, background: 'rgba(10,26,47,0.96)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.3)', padding: '1.2rem 5%' }}>
-        <div style={{ maxWidth: '1600px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ width: '80px', height: '80px', background: 'linear-gradient(135deg, #d4af37, #ffd700)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', fontWeight: '900', color: '#000', boxShadow: '0 10px 30px rgba(212,175,55,0.6)' }}>
-            AI
+      {/* Fixed Navbar - Exact Royal Dubai Style */}
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.2)' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {/* Logo */}
+          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#d4af37' }}>
+            Al-Irfan
           </div>
 
-          <div className="hidden lg:flex gap-12">
-            {['Home', 'About Us', 'Why Al-Irfan?', 'Admissions', 'Curriculum', 'Student Life', 'For Parents'].map(item => (
-              <a key={item} href="#" className="nav-link">{item}</a>
+          {/* Desktop Menu */}
+          <div style={{ display: 'flex', gap: '2.5rem' }} className="hidden lg:flex">
+            {['Home', 'About Us', 'Why Al-Irfan?', 'Admissions', 'Curriculum', 'Student Life', 'For Parents'].map((item) => (
+              <a key={item} href="#" className="nav-link">
+                {item}
+              </a>
             ))}
           </div>
 
-          <div className="hamburger lg:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+          {/* Mobile Hamburger */}
+          <div 
+            className="hamburger lg:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <span className={menuOpen ? 'active' : ''}></span>
             <span className={menuOpen ? 'active' : ''}></span>
             <span className={menuOpen ? 'active' : ''}></span>
@@ -66,134 +94,135 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Full-Screen Menu */}
       {menuOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'linear-gradient(135deg, #0a1a2f, #03102a)', zIndex: 998, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => setMenuOpen(false)}>
-          <div onClick={e => e.stopPropagation()}>
+        <div 
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(10,26,47,0.98)',
+            zIndex: 998,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onClick={() => setMenuOpen(false)}
+        >
+          <div style={{ textAlign: 'center' }} onClick={(e) => e.stopPropagation()}>
             {['Home', 'About Us', 'Why Al-Irfan?', 'Admissions', 'Curriculum', 'Student Life', 'For Parents'].map((item, i) => (
-              <div key={item} style={{ margin: '1.8rem 0', opacity: 0, animation: 'fadeInUp 0.8s ease-out forwards', animationDelay: `${i * 0.1}s` }}>
-                <a href="#" style={{ color: '#d4af37', textDecoration: 'none', fontSize: '3rem', fontWeight: '700' }}>{item}</a>
+              <div 
+                key={item} 
+                style={{ 
+                  margin: '1.5rem 0',
+                  opacity: 0,
+                  animation: 'fadeInUp 0.6s ease-out forwards',
+                  animationDelay: `${i * 0.1}s`
+                }}
+              >
+                <a 
+                  href="#" 
+                  style={{ 
+                    color: '#d4af37', 
+                    textDecoration: 'none', 
+                    fontSize: '2.5rem', 
+                    fontWeight: '600'
+                  }}
+                >
+                  {item}
+                </a>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Hero */}
-      <section style={{ height: '100vh', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
-          <iframe src="https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1" style={{ width: '100%', height: '100%', border: 'none' }} allow="autoplay"></iframe>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,26,47,0.75) 0%, rgba(10,26,47,0.95) 100%)' }}></div>
-        </div>
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '1000px', padding: '0 2rem' }} className="animate">
-          <h1 style={{ fontSize: 'clamp(3.8rem,10vw,9rem)', fontWeight: '900', margin: '0 0 1rem 0' }}>ALIRFAN RESIDENTIAL SCHOOL</h1>
-          <p style={{ fontSize: 'clamp(1.8rem,6vw,3.5rem)', color: '#e2e8f0', fontWeight: '600' }}>Unlocking Knowledge • Inspiring Growth</p>
-          <p style={{ fontSize: '1.5rem', maxWidth: '800px', margin: '0 auto 4rem', color: '#cbd5e1', lineHeight: '1.8' }}>
-            Empowering young minds with academic excellence and strong Islamic values in a safe, modern residential campus.
-          </p>
-          <a href="#enquiry" className="btn-gold">ENROLL YOUR CHILD TODAY</a>
-        </div>
-      </section>
-
-      {/* Rest of your beautiful sections (unchanged) */}
-      {/* ... Leadership, President's Message, Why Choose, Gallery, Contact ... */}
-      {/* (I kept everything exactly as you loved from Demo1 – just fixed the navbar bug) */}
-
-      {/* President’s Message */}
-      <section style={{ padding: '120px 5%', background: '#03102a' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '4rem', color: '#d4af37', marginBottom: '5rem' }}>President's Message</h2>
-          <div className="glass" style={{ padding: '3rem', minHeight: '320px', position: 'relative', overflow: 'hidden' }}>
-            {presidentNotes.map((note, i) => (
-              <div key={i} style={{ position: i === currentSlide ? 'relative' : 'absolute', top: 0, left: 0, width: '100%', opacity: i === currentSlide ? 1 : 0, transform: i === currentSlide ? 'translateY(0)' : 'translateY(30px)', transition: 'all 1s ease' }}>
-                <p style={{ fontSize: '1.7rem', lineHeight: '2.6rem', color: '#e2e8f0', fontStyle: 'italic' }}>{note.quote}</p>
-                <p style={{ marginTop: '3rem', fontSize: '1.8rem', color: '#d4af37', fontWeight: 'bold' }}>{note.author}</p>
-              </div>
-            ))}
+      {/* Hero Slider - Exact Royal Dubai Style */}
+      <section className="hero-slider" style={{ position: 'relative', height: '80vh' }}>
+        <div className="slide active" style={{ position: 'absolute', width: '100%', height: '100%' }}>
+          <iframe
+            src="https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1"
+            title="Hero Video"
+            frameBorder="0"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <div className="hero-overlay" style={{ position: 'absolute', top: '50%', left: '5%', transform: 'translateY(-50%)', color: 'white', background: 'rgba(0,0,0,0.5)', padding: '2rem', borderRadius: '10px', maxWidth: '50%' }}>
+            <h1 style={{ fontSize: '2.5rem', margin: 0, color: 'white' }}>ALIRFAN RESIDENTIAL SCHOOL</h1>
+            <p style={{ fontSize: '1.2rem', color: 'white' }}>Unlocking Knowledge, Inspiring Growth</p>
+            <p style={{ fontSize: '1rem', color: 'white' }}>Empower your child with a dynamic and engaging learning environment that fosters creativity and critical thinking.</p>
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section style={{ padding: '120px 5%', background: 'linear-gradient(to top, #0a1a2f, #03102a)' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '4.2rem', color: '#d4af37', marginBottom: '6rem' }}>
-          Why Choose Al-Irfan?
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '3rem', maxWidth: '1400px', margin: '0 auto' }}>
-          {features.map((f, i) => (
-            <div key={i} className="glass" style={{ padding: '3rem', transition: 'transform 0.4s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-20px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-              <h3 style={{ fontSize: '2rem', color: '#d4af37', marginBottom: '2rem' }}>{f.title}</h3>
-              <ul style={{ paddingLeft: '1.8rem', color: '#cbd5e1', fontSize: '1.2rem' }}>
-                {f.bullets.map((b, j) => (
-                  <li key={j} style={{ margin: '1rem 0' }}>{b}</li>
-                ))}
-              </ul>
+      {/* About Section - Exact Royal Dubai Style */}
+      <section style={{ padding: '4rem 5%', background: 'white' }}>
+        <h2 style={{ color: '#d4af37', textAlign: 'center', fontSize: '2.5rem' }}>The Al-Irfan Standard in Education</h2>
+        <p style={{ maxWidth: '800px', margin: '1rem auto', textAlign: 'center', fontSize: '1.1rem', lineHeight: '1.6' }}>
+          At Al-Irfan Residential School, we provide a nurturing environment with academic rigour and high performance. The commitment, vision, and dedication that shape our school's journey.
+        </p>
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <a href="/about" style={{ color: '#d4af37', textDecoration: 'underline', fontSize: '1.1rem' }}>Read More about Al-Irfan</a>
+        </div>
+      </section>
+
+      {/* Facilities Grid - Exact Royal Dubai Style */}
+      <section style={{ padding: '4rem 5%', background: '#f9f9f9' }}>
+        <h2 style={{ color: '#d4af37', textAlign: 'center', fontSize: '2.5rem' }}>Facilities</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginTop: '2rem' }}>
+          {facilities.map((facility, i) => (
+            <div key={i} className="card" style={{ background: 'white', padding: '1.5rem', textAlign: 'center', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', transition: 'transform 0.3s' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+              <img src={facility.image} alt={facility.title} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' }} />
+              <h3 style={{ color: '#d4af37' }}>{facility.title}</h3>
+              <p style={{ fontSize: '0.9rem' }}>{facility.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Gallery */}
-      <section style={{ padding: '120px 5%', background: '#0a1a2f' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '4rem', color: '#d4af37', marginBottom: '5rem' }}>Campus Life</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', maxWidth: '1400px', margin: '0 auto' }}>
-          {[
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOziYdgFhdzpVdu2m_yM1aLtIy_8qAICjng&s",
-            "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-7.jpg",
-            "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-8.jpg",
-            "https://www.gemsakinternationalschool.com/-/media/project/gems/akn_al_khaleej_national_school/_generic-content-images/new-facilities-02-08-22/3.jpg",
-            "https://lh3.googleusercontent.com/p/AF1QipO0EdNNFv5a-ufPkAt-rmf_dANgRJwNuvvODfzt=s680-w680-h510",
-            "https://greenwoodhigh.edu.in/wp-content/uploads/2021/03/facilities-sarja-icse-tile.jpg",
-            "https://www.sunglowschool.in/web_uploads/ch2018-11-05-16-37-34.jpg"
-          ].map((src, i) => (
-            <img 
-              key={i} 
-              src={src} 
-              alt={`Campus Life ${i + 1}`} 
-              style={{ 
-                borderRadius: '24px', 
-                width: '100%', 
-                height: '340px', 
-                objectFit: 'cover', 
-                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-                loading: 'lazy'
-              }} 
-            />
+      {/* Testimonials Carousel - Exact Royal Dubai Style */}
+      <section style={{ padding: '4rem 5%', background: 'white' }}>
+        <h2 style={{ color: '#d4af37', textAlign: 'center', fontSize: '2.5rem' }}>Hear from the Al-Irfan Community</h2>
+        <div className="testimonial-slider" style={{ marginTop: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ padding: '1rem', textAlign: 'center', fontStyle: 'italic', fontSize: '1.1rem' }}>
+            <p>{testimonials[currentTestimonial].quote}</p>
+            <strong style={{ color: '#d4af37', display: 'block', marginTop: '1rem' }}>{testimonials[currentTestimonial].author}</strong>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery - Exact Royal Dubai Style */}
+      <section style={{ padding: '4rem 5%', background: '#f9f9f9' }}>
+        <h2 style={{ color: '#d4af37', textAlign: 'center', fontSize: '2.5rem' }}>Gallery</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
+          {facilities.slice(0, 6).map((facility, i) => (
+            <img key={i} src={facility.image} alt={facility.title} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px' }} />
           ))}
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="enquiry" style={{ padding: '140px 5%', background: 'linear-gradient(to bottom, #03102a, #000)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '4.5rem', color: '#d4af37', marginBottom: '2rem' }}>
-            Ready to Join the Al-Irfan Family?
-          </h2>
-          <p style={{ fontSize: '1.6rem', color: '#e2e8f0', marginBottom: '5rem' }}>
-            Limited seats available • Secure your child's future today
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', marginBottom: '5rem' }}>
-            <div className="glass" style={{ padding: '3rem' }}>
-              <h3 style={{ color: '#d4af37', fontSize: '2rem', marginBottom: '1.5rem' }}>Admission Office</h3>
-              <p style={{ fontSize: '1.3rem', margin: '0.8rem 0' }}>+91 9860 579 809</p>
-              <p style={{ fontSize: '1.3rem', margin: '0.8rem 0' }}>+91 8975 613 666</p>
-              <p style={{ fontSize: '1.3rem', margin: '0.8rem 0' }}>+91 9923 203 933</p>
-              <p style={{ marginTop: '1.5rem', fontSize: '1.3rem' }}>mail@alirfanschool.com</p>
-            </div>
-            <div className="glass" style={{ padding: '3rem' }}>
-              <h3 style={{ color: '#d4af37', fontSize: '2rem', marginBottom: '1.5rem' }}>Visit Us</h3>
-              <p style={{ fontSize: '1.3rem' }}>Every Day: 9:00 AM – 3:00 PM</p>
-              <p style={{ marginTop: '1.5rem', fontSize: '1.3rem' }}>Khultabad, Maharashtra (India)</p>
-            </div>
+      {/* Contact - Exact Royal Dubai Style */}
+      <section id="enquiry" style={{ padding: '4rem 5%', background: 'white' }}>
+        <h2 style={{ color: '#d4af37', textAlign: 'center', fontSize: '2.5rem' }}>Contact Us</h2>
+        <div style={{ maxWidth: '800px', margin: '2rem auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+          <div>
+            <h3 style={{ color: '#d4af37' }}>Admission Inquiries</h3>
+            <p><i className="fas fa-phone mr-2"></i>+91 9860 579 809</p>
+            <p><i className="fas fa-envelope mr-2"></i>mail@alirfanschool.com</p>
+            <p>+91 8975 613 666 • +91 9923 203 933</p>
           </div>
-          <a href="enquiry.aspx" className="btn-gold">
-            SUBMIT ENQUIRY NOW
-          </a>
+          <div>
+            <h3 style={{ color: '#d4af37' }}>School Hours & Location</h3>
+            <p>Every Day: 9:00 AM to 3:00 PM</p>
+            <p><i className="fas fa-map-marker-alt mr-2"></i>Khultabad, Maharashtra (IN)</p>
+          </div>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <a href="enquiry.aspx" className="btn-gold">Submit Enquiry Now</a>
         </div>
       </section>
 
-      <footer style={{ padding: '4rem', textAlign: 'center', background: '#000', color: '#777', fontSize: '1.1rem' }}>
-        <p>© 2024–2025 Al-Irfan Residential School • All Rights Reserved</p>
+      <footer style={{ background: '#0a1a2f', color: 'white', padding: '3rem 5%', textAlign: 'center' }}>
+        <p>&copy; 2025 Al-Irfan Residential School. All rights reserved.</p>
       </footer>
     </div>
   );
